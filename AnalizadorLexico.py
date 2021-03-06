@@ -65,8 +65,8 @@ while x<len(contenido_archivo):
 		elif char_actual=="\'":
 			print("se reconocio comilla ", fila)
 #|                                                                |#
-		#else:
-		#	print("se encontro un error en :"+char_actual , " columnita ", columna)
+		else:
+			print("se encontro un error en :"+char_actual , " columnita ", columna)
 
 #|---------------------------------------------------------------|#
 
