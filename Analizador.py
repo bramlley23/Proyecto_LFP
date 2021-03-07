@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 
 
-class ArchivoEntrada:
+class ArchivoEntrada():
     raiz=Tk()
     archivo = " "
     x=0
@@ -13,6 +13,7 @@ class ArchivoEntrada:
          self.estado=0
          self.columna=0
          self.fila=1
+         self.contenido_archivo=""
          self.char_actual=""
          self.lexema=""
          self.numeros=[]
@@ -21,13 +22,9 @@ class ArchivoEntrada:
 #<--------------- VENTANA EMERGENTE ------------------------------------------->
     def ventanaEmergente(self):
         self.archivo = filedialog.askopenfilename(title="Archivos", initialdir="C:/")
-        self.archivo = self.archivo + " "
-
-        with open(self.archivo)as f_obj:
-            lineas = f_obj.readlines()
-
-        for line in lineas:
-            print(line.rstrip())
+        with open(self.archivo,'r',encoding='UTF-8')as f:
+            self.contenido_archivo=f.read()
+        self.contenido_archivo= self.contenido_archivo+" "
 
 #<--------------- METODO PARA COMPARAR CARACTERES DE LETRAS ------------------->
 
@@ -50,8 +47,8 @@ class ArchivoEntrada:
 
     def automata(self):
 
-        while self.x<len(self.archivo):
-            self.char_actual=self.archivo[self.x]
+        while self.x<len(self.contenido_archivo):
+            self.char_actual=self.contenido_archivo[self.x]
 #<--------------------------------- Estado Cero ------------------------------->
             if self.estado == 0:
                 if self.esletra(self.char_actual):
@@ -93,9 +90,9 @@ class ArchivoEntrada:
                     self.estado=0
                     self.x=self.x-1
                     print("se reconocio " + self.lexema , " numero ", self.fila)
-                    numeros.append("numeros")
-                    numeros.append(self.lexema)
-                    numeros.append("fila")
+                    self.numeros.append("numeros")
+                    self.numeros.append(self.lexema)
+                    self.numeros.append("fila")
                     self.lexema=""
 #<--------------------------------- Estado Tres ------------------------------->
             elif self.estado==3:
@@ -112,7 +109,6 @@ class ArchivoEntrada:
             self.columna = self.columna+1
             self.fila = self.fila+1
             self.x=self.x+1
-
 
 invocar = ArchivoEntrada("Hola mundo")
 invocar.ventanaEmergente()
